@@ -1,0 +1,42 @@
+# Игнорируем файлы операционной системы
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Игнорируем файлы редакторов
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.sublime-*
+
+# Игнорируем node_modules (если в будущем добавим npm)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Игнорируем временные файлы
+*.tmp
+*.temp
+*.log
+
+# Игнорируем файлы сборки (если добавим сборщик)
+dist/
+build/
+.cache/
+
+# Игнорируем конфигурационные файлы с чувствительными данными
+.env
+.env.local
+config.local.js
+
+# Игнорируем папки для тестирования
+coverage/
+.nyc_output/
+
+# Игнорируем бэкапы
+*.bak
+*.backup
