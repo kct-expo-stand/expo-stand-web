@@ -122,6 +122,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('activeGameDesc').textContent = data.desc;
                 document.getElementById('activeGameIcon').innerHTML = data.icon;
 
+                // Initialize specific game
+                const frame = document.querySelector('.game-container-frame');
+                // Reset content
+                frame.innerHTML = '<div id="activeGameContainer" class="game-placeholder-screen"></div>';
+                const gameContainer = document.getElementById('activeGameContainer');
+
+                if (gameKey === 'frontend') {
+                    gameContainer.className = 'game-container-full';
+                    new FrontendGame('activeGameContainer');
+                } else {
+                    // Default placeholder for other games
+                    gameContainer.innerHTML = `
+                        <div class="loader"></div>
+                        <span>Модуль ${data.title} в разработке...</span>
+                    `;
+                }
+
                 canvas.style.transition = 'opacity 0.5s ease';
                 canvas.style.opacity = '0';
 
@@ -143,6 +160,15 @@ document.addEventListener('DOMContentLoaded', function() {
         gridView.classList.remove('hidden');
         
         header.style.display = '';
+
+        // Reset game container
+        const frame = document.querySelector('.game-container-frame');
+        frame.innerHTML = `
+            <div class="game-placeholder-screen">
+                <div class="loader"></div>
+                <span>Загрузка модуля...</span>
+            </div>
+        `;
         
         setTimeout(() => {
             isAnimating = false;
