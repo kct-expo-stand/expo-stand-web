@@ -124,10 +124,13 @@
                     <div class="floating-shape shape-2"></div>
                     <div class="floating-shape shape-3"></div>
                 </div>
-                <div style="text-align: center;">
-                    <h2>Оставить заявку</h2>
-                </div>
+                <!-- Title moved inside form -->
                 <form id="applicationForm" class="application-form">
+                    <div class="form-header">
+                        <h2>Оставить заявку</h2>
+                        <div class="form-divider"></div>
+                    </div>
+
                     <div class="form-group">
                         <label for="name">Имя *</label>
                         <input type="text" id="name" name="name" required placeholder="Введите ваше имя">

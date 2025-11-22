@@ -10,4 +10,11 @@
     --text-secondary: #555555;
     --accent-glow: rgba(200, 5, 183, 0.15);
     --shadow-color: rgba(200, 5, 183, 0.1);
+    
+    /* Fonts */
+    --font-comfortaa: 'Comfortaa', cursive;
+    --font-openrunde: 'OpenRunde', sans-serif;
+    --font-standard: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    --font-main: var(--font-comfortaa);
 }

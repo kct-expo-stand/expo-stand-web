@@ -51,22 +51,23 @@
     box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.06);
 }
 
-.application-section h2 {
-    font-size: 58px;
-    font-weight: 600;
+.form-header {
     text-align: center;
-    margin: 0 auto 60px auto;
-    padding: 20px 60px;
+    margin-bottom: 10px;
+}
+
+.form-header h2 {
+    font-size: 36px;
+    font-weight: 700;
     color: var(--primary);
-    background: rgba(255, 255, 255, 1);
-    backdrop-filter: blur(20px);
-    border: none;
-    border-radius: 100px;
-    display: inline-block;
-    position: relative;
-    z-index: 10;
-    letter-spacing: -1px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 0 20px 0;
+}
+
+.form-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .form-group {
