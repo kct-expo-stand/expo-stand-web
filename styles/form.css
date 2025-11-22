@@ -23,40 +23,6 @@
     background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
 }
 
-.floating-shape {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    animation: floatShape 25s infinite ease-in-out;
-}
-
-.shape-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--primary);
-    top: -10%;
-    right: -10%;
-    animation-delay: 0s;
-}
-
-.shape-2 {
-    width: 500px;
-    height: 500px;
-    background: #E066D5;
-    bottom: -10%;
-    left: -10%;
-    animation-delay: -8s;
-}
-
-.shape-3 {
-    width: 400px;
-    height: 400px;
-    background: #9E0492;
-    top: 40%;
-    left: 60%;
-    animation-delay: -15s;
-}
 
 @keyframes floatShape {
     0%, 100% { transform: translate(0, 0) scale(1); }
@@ -86,11 +52,11 @@
 }
 
 .application-section h2 {
-    font-size: 64px;
+    font-size: 58px;
     font-weight: 600;
     text-align: center;
     margin: 0 auto 60px auto;
-    padding: 20px 60px 30px 60px;
+    padding: 20px 60px;
     color: var(--primary);
     background: rgba(255, 255, 255, 1);
     backdrop-filter: blur(20px);
@@ -101,12 +67,6 @@
     z-index: 10;
     letter-spacing: -1px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.application-section h2:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 60px rgba(200, 5, 183, 0.2);
-    border-color: var(--primary);
 }
 
 .form-group {
