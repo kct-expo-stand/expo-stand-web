@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Интерактивный выставочный стенд КЦТ">
     <title>Выставочный стенд КЦТ</title>
+    <link rel="icon" href="./assets/images/Logo5.png">
     
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/form.css">
@@ -12,6 +13,7 @@
 <body>
     <div class="container">
         <header class="header">
+            <img src="./assets/images/Logo5.png">
             <div class="header-content">
                 <h1>Выставочный стенд КЦТ</h1>
                 <nav class="main-nav">
@@ -29,6 +31,93 @@
             <section id="home" class="hero-section">
                 <h2>Добро пожаловать!</h2>
                 <p>Исследуйте наш интерактивный выставочный стенд</p>
+                <div class="description">
+                    Цифровое будущее создается сегодня — 
+                    и наши студенты становятся его творцами.<br>
+                    Здесь, на нашем стенде, вы увидите, 
+                    как мы превращаем интерес к технологиям в реальные компетенции и востребованные профессии.
+                    Узнайте о наших перспективных образовательных программах, 
+                    достижениях студентов и уникальных возможностях для старта успешной карьеры в IT-отрасли. 
+                    <p><strong>Готовы начать строить будущее вместе с нами?</strong></p>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#games" class="btn btn-primary">К мини-играм</a>
+                    <a href="#contact" class="btn btn-secondary">Оставить заявку</a>
+                </div>
+            </section> 
+
+            <section id="games" class="games-section">
+                <h2>Направления обучения</h2>
+                <div class="games-tabs">
+                    <button class="tab-button active" data-tab="frontend">FrontEnd</button>
+                    <button class="tab-button" data-tab="backend">BackEnd</button>
+                    <button class="tab-button" data-tab="gamedev">Game Development</button>
+                    <button class="tab-button" data-tab="uxui">UX/UI Design</button>
+                    <button class="tab-button" data-tab="pm">Project Manager</button>
+                    <button class="tab-button" data-tab="sysadmin">System Administrator</button>
+                </div>
+                <div class="games-content">
+                    <div class="tab-content active" id="frontend">
+                        <h3>FrontEnd Разработка</h3>
+                        <p>Изучите современные технологии веб-разработки: HTML, CSS, JavaScript, React и многое другое. Создавайте красивые и интерактивные пользовательские интерфейсы.</p>
+                        <div class="mini-game-container">
+                            <h4>Мини-игра: FrontEnd</h4>
+                            <div class="mini-game-placeholder">
+                                <!-- для минигеймов -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="backend">
+                        <h3>BackEnd Разработка</h3>
+                        <p>Освойте серверную разработку: Node.js,базы данных, API и архитектуру приложений. Станьте специалистом по созданию надежных серверных решений.</p>
+                        <div class="mini-game-container">
+                            <h4>Мини-игра: BackEnd</h4>
+                            <div class="mini-game-placeholder">
+                                <!-- для минигеймов -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="gamedev">
+                        <h3>Game Development</h3>
+                        <p>Погрузитесь в мир игровой разработки: Unity, Unreal Engine, программирование игровой логики, графика и анимация. Создавайте собственные игры.</p>
+                        <div class="mini-game-container">
+                            <h4>Мини-игра: Game Development</h4>
+                            <div class="mini-game-placeholder">
+                                <!-- для минигеймов -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="uxui">
+                        <h3>UX/UI Design</h3>
+                        <p>Научитесь создавать удобные и красивые интерфейсы: дизайн-мышление, прототипирование, работа с инструментами дизайна и пользовательский опыт.</p>
+                        <div class="mini-game-container">
+                            <h4>Мини-игра: UX/UI Design</h4>
+                            <div class="mini-game-placeholder">
+                                <!-- для минигеймов -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="pm">
+                        <h3>Project Manager</h3>
+                        <p>Освойте управление проектами в IT: Agile, Scrum, планирование, работа с командами, управление рисками и успешная реализация проектов.</p>
+                        <div class="mini-game-container">
+                            <h4>Мини-игра: Project Manager</h4>
+                            <div class="mini-game-placeholder">
+                                <!-- для минигеймов -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="sysadmin">
+                        <h3>System Administrator</h3>
+                        <p>Изучите администрирование систем: Linux, сети, безопасность, облачные технологии, мониторинг и автоматизация инфраструктуры.</p>
+                        <div class="mini-game-container">
+                            <h4>Мини-игра: System Administrator</h4>
+                            <div class="mini-game-placeholder">
+                                <!-- для минигеймов -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <section id="contact" class="application-section">
