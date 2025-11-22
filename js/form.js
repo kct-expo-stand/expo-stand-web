@@ -6,7 +6,7 @@ async function sendApplication(data) {
             throw new Error('URL API не настроен. Проверьте файл config.js');
         }
 
-        showFormStatus('Отправка данных...', 'loading');
+        // showFormStatus('Отправка данных...', 'loading'); // Removed as we use button state
 
         const response = await fetch(url, {
             method: 'POST',
@@ -17,7 +17,7 @@ async function sendApplication(data) {
             body: JSON.stringify(data)
         });
 
-        showFormStatus('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+        // showFormStatus('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success'); // Handled by button
         
         return {
             success: true,
@@ -66,13 +66,16 @@ function initApplicationForm() {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalBtnText = submitBtn.textContent;
+
         const formData = new FormData(form);
         const data = {
-            name: formData.get('name'),
+            user_id: '',
+            username: 'стенд КЦТ',
+            first_name: formData.get('name'),
             phone: formData.get('phone'),
-            direction: formData.get('direction'),
-            timestamp: new Date().toISOString(),
-            source: 'expo-stand-web'
+            program: formData.get('direction')
         };
 
         if (!isValidPhone(data.phone)) {
@@ -80,10 +83,33 @@ function initApplicationForm() {
             return;
         }
 
+        // Set loading state
+        submitBtn.classList.add('loading');
+        submitBtn.textContent = 'Отправка...';
+        
+        // Hide previous messages
+        const messageElement = document.getElementById('formMessage');
+        if (messageElement) messageElement.style.display = 'none';
+
         const result = await sendApplication(data);
 
+        submitBtn.classList.remove('loading');
+
         if (result.success) {
+            // Set success state
+            submitBtn.classList.add('success');
+            submitBtn.textContent = 'Заявка отправлена!';
+            
             form.reset();
+
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.classList.remove('success');
+                submitBtn.textContent = originalBtnText;
+            }, 3000);
+        } else {
+            // Revert to original state on error
+            submitBtn.textContent = originalBtnText;
         }
     });
 

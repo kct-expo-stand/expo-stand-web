@@ -16,5 +16,5 @@
     --font-openrunde: 'OpenRunde', sans-serif;
     --font-standard: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
-    --font-main: var(--font-comfortaa);
+    --font-main: var(--font-openrunde);
 }
