@@ -131,6 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (gameKey === 'frontend') {
                     gameContainer.className = 'game-container-full';
                     new FrontendGame('activeGameContainer');
+                } else if (gameKey === 'backend') {
+                    gameContainer.className = 'game-container-full';
+                    const game = new BackendGame();
+                    game.start(gameContainer);
                 } else {
                     // Default placeholder for other games
                     gameContainer.innerHTML = `
