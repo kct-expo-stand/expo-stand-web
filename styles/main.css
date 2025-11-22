@@ -1,20 +1,33 @@
+:root {
+    --primary: #C805B7;
+    --primary-dark: #9E0492;
+    --primary-light: #E066D5;
+    --background: #FFFFFF;
+    --surface: #FAF5F9;
+    --border: #E8D5E6;
+    --text-primary: #2C2C2C;
+    --text-secondary: #666666;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
 }
 
 .header {
-    background-color: #e6d9f5; 
-    border-bottom: 3px solid #d4c4e8; 
+    background-color: var(--background); 
+    border-bottom: 2px solid var(--border); 
+    height: 30px;
     padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
 }
 
 .header img {
-    width: 60px;
+    width: 45px;
     height: auto;
     margin-left: 20px; 
     object-fit: contain;
@@ -32,8 +45,9 @@ body {
 
 .header h1 {
     margin: 0;
-    color: #5a3d7a;
+    color: var(--primary);
     font-size: 24px;
+    font-weight: 700;
 }
 
 .main-nav ul {
@@ -50,15 +64,16 @@ body {
 
 .main-nav a {
     text-decoration: none;
-    color: #5a3d7a;
+    color: var(--text-primary);
     font-weight: 500;
     padding: 8px 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 
 .main-nav a:hover {
-    background-color: #d4c4e8;
+    background-color: var(--surface);
+    color: var(--primary);
 }
 
 .hero-section {
@@ -70,21 +85,22 @@ body {
 
 .hero-section h2 {
     font-size: 48px;
-    font-weight: bold;
+    font-weight: 700;
     margin: 0 0 20px 0;
-    color: #5a3d7a;
+    color: var(--primary);
 }
 
 .hero-section > p {
     font-size: 24px;
     margin: 0 0 30px 0;
-    color: #666;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .hero-section .description {
     font-size: 18px;
-    line-height: 1.6;
-    color: #555;
+    line-height: 1.8;
+    color: var(--text-secondary);
     max-width: 800px;
     margin: 0 auto 40px auto;
 }
@@ -109,25 +125,27 @@ body {
 }
 
 .btn-primary {
-    background-color: #5a3d7a;
+    background-color: var(--primary);
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #4a2d6a;
+    background-color: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(90, 61, 122, 0.3);
+    box-shadow: 0 4px 16px rgba(200, 5, 183, 0.3);
 }
 
 .btn-secondary {
-    background-color: #d4c4e8;
-    color: #5a3d7a;
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
 }
 
 .btn-secondary:hover {
-    background-color: #c4b4d8;
+    background-color: var(--primary);
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 196, 232, 0.3);
+    box-shadow: 0 4px 16px rgba(200, 5, 183, 0.2);
 }
 
 .games-section {
@@ -139,7 +157,8 @@ body {
 
 .games-section h2 {
     font-size: 36px;
-    color: #5a3d7a;
+    font-weight: 700;
+    color: var(--primary);
     margin-bottom: 40px;
 }
 
@@ -147,7 +166,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     margin-bottom: 40px;
 }
 
@@ -155,24 +174,25 @@ body {
     padding: 12px 24px;
     font-size: 16px;
     font-weight: 600;
-    background-color: #e6d9f5;
-    color: #5a3d7a;
-    border: 2px solid #d4c4e8;
+    background-color: var(--background);
+    color: var(--text-primary);
+    border: 2px solid var(--border);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .tab-button:hover {
-    background-color: #d4c4e8;
+    border-color: var(--primary-light);
+    color: var(--primary);
     transform: translateY(-2px);
 }
 
 .tab-button.active {
-    background-color: #5a3d7a;
+    background-color: var(--primary);
     color: white;
-    border-color: #5a3d7a;
-    box-shadow: 0 4px 12px rgba(90, 61, 122, 0.3);
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(200, 5, 183, 0.3);
 }
 
 .games-content {
@@ -183,10 +203,10 @@ body {
 .tab-content {
     display: none;
     text-align: left;
-    background-color: #f8f5fc;
+    background-color: var(--surface);
     padding: 30px;
     border-radius: 12px;
-    border: 2px solid #e6d9f5;
+    border: 2px solid var(--border);
     animation: fadeIn 0.3s ease;
 }
 
@@ -196,39 +216,41 @@ body {
 
 .tab-content h3 {
     font-size: 28px;
-    color: #5a3d7a;
+    font-weight: 700;
+    color: var(--primary);
     margin-bottom: 15px;
 }
 
 .tab-content p {
     font-size: 18px;
     line-height: 1.8;
-    color: #555;
+    color: var(--text-secondary);
     margin: 0 0 30px 0;
 }
 
 .mini-game-container {
     margin-top: 30px;
     padding-top: 25px;
-    border-top: 2px solid #e6d9f5;
+    border-top: 2px solid var(--border);
 }
 
 .mini-game-container h4 {
     font-size: 22px;
-    color: #5a3d7a;
+    font-weight: 600;
+    color: var(--primary);
     margin-bottom: 15px;
 }
 
 .mini-game-placeholder {
     min-height: 200px;
-    background-color: white;
-    border: 2px dashed #d4c4e8;
+    background-color: var(--background);
+    border: 2px dashed var(--border);
     border-radius: 8px;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #999;
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -244,16 +266,17 @@ body {
 } 
 
 footer {
-    background-color: #e6d9f5; 
-    border-top: 3px solid #d4c4e8; 
+    background-color: var(--background);
+    border-top: 2px solid var(--border);
     padding: 20px 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 8px rgba(200, 5, 183, 0.08);
     text-align: center;
+    margin-top: 60px;
 }
 
 footer p {
     margin: 0;
-    color: #5a3d7a;
+    color: var(--text-secondary);
     font-size: 16px;
     font-weight: 500;
 }

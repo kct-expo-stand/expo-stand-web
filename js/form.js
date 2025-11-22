@@ -50,11 +50,6 @@ function showFormStatus(message, type) {
     }
 }
 
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
 function isValidPhone(phone) {
     const phoneDigits = phone.replace(/\D/g, '');
     return phoneDigits.length >= 10;
@@ -74,20 +69,13 @@ function initApplicationForm() {
         const formData = new FormData(form);
         const data = {
             name: formData.get('name'),
-            email: formData.get('email'),
             phone: formData.get('phone'),
-            company: formData.get('company'),
-            message: formData.get('message'),
+            direction: formData.get('direction'),
             timestamp: new Date().toISOString(),
             source: 'expo-stand-web'
         };
 
-        if (!isValidEmail(data.email)) {
-            showFormStatus('Пожалуйста, введите корректный email адрес', 'error');
-            return;
-        }
-
-        if (data.phone && !isValidPhone(data.phone)) {
+        if (!isValidPhone(data.phone)) {
             showFormStatus('Пожалуйста, введите корректный номер телефона', 'error');
             return;
         }
@@ -117,5 +105,5 @@ if (document.readyState === 'loading') {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { sendApplication, showFormStatus, isValidEmail, isValidPhone };
+    module.exports = { sendApplication, showFormStatus, isValidPhone };
 }
