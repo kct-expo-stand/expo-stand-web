@@ -19,8 +19,12 @@ class BackendGame {
         overlay.className = 'backend-overlay';
         overlay.innerHTML = `
             <h2>Backend Разработка</h2>
-            <p>Добро пожаловать на "Тёмную сторону" веба. Здесь нет красивых кнопок, только логика, данные и скорость.</p>
-            <p>Твоя задача — настроить сервер так, чтобы всё работало и ничего не упало.</p>
+            <p>Добро пожаловать на "Тёмную сторону" веба!</p>
+            <div class="intro-levels">
+                <div class="intro-level-item"><span class="level-badge">1</span> Маршруты — соедини запросы с нужными функциями</div>
+                <div class="intro-level-item"><span class="level-badge">2</span> Логика — собери правильную цепочку действий</div>
+                <div class="intro-level-item"><span class="level-badge">3</span> Нагрузка — управляй сервером в реальном времени</div>
+            </div>
             <button class="btn-backend-start">Запустить Терминал</button>
         `;
 
@@ -69,17 +73,26 @@ class BackendGame {
     // ================= LEVEL 1: ROUTING (SIMPLIFIED) =================
     renderLevel1(content) {
         content.innerHTML = `
+            <div class="level-tutorial">
+                <div class="tutorial-icon">🔌</div>
+                <div class="tutorial-text">
+                    <strong>Что такое маршрутизация?</strong>
+                    <p>Когда ты нажимаешь кнопку на сайте — браузер отправляет <em>запрос</em>. Сервер должен понять, какая <em>функция</em> обработает этот запрос.</p>
+                    <p><strong>Твоя задача:</strong> Соедини каждый запрос слева с правильной функцией справа. Просто перетащи!</p>
+                </div>
+            </div>
             <div class="routing-workspace">
                 <div class="requests-column" id="requestsList">
-                    <div class="column-title">Запросы от пользователей</div>
-                    <div style="color: #888; font-size: 12px; margin-bottom: 10px; text-align: center;">Перетащи запрос к нужной функции</div>
+                    <div class="column-title">📥 Запросы</div>
                     <!-- Draggable Items -->
                 </div>
+                <div class="arrow-hint">➜</div>
                 <div class="handlers-column" id="handlersList">
-                    <div class="column-title">Функции сервера</div>
+                    <div class="column-title">⚙️ Функции</div>
                     <!-- Drop Targets -->
                 </div>
             </div>
+            <div class="level-progress" id="levelProgress">Соединено: 0 / 4</div>
         `;
 
         const requests = [
@@ -173,35 +186,74 @@ class BackendGame {
 
     checkLevel1() {
         const filled = this.container.querySelectorAll('.handler-node.filled').length;
+        const progressEl = this.container.querySelector('#levelProgress');
+        if (progressEl) progressEl.textContent = `Соединено: ${filled} / 4`;
+        
         if (filled === 4) {
             setTimeout(() => {
-                alert('Отлично! Все запросы идут куда нужно. Система запущена.');
-                this.startLevel(2);
+                this.showLevelComplete('Маршрутизация настроена!', 'Теперь каждый запрос знает, куда идти.', 2);
             }, 200);
         }
+    }
+
+    showLevelComplete(title, desc, nextLevel) {
+        const overlay = document.createElement('div');
+        overlay.className = 'backend-overlay level-complete';
+        overlay.innerHTML = `
+            <div class="complete-icon">✓</div>
+            <h2>${title}</h2>
+            <p>${desc}</p>
+            <button class="btn-backend-start">Следующий уровень</button>
+        `;
+        overlay.querySelector('button').addEventListener('click', () => {
+            overlay.remove();
+            this.startLevel(nextLevel);
+        });
+        this.container.appendChild(overlay);
     }
 
     // ================= LEVEL 2: LOGIC CHAINS (SIMPLIFIED) =================
     renderLevel2(content) {
         content.innerHTML = `
+            <div class="level-tutorial">
+                <div class="tutorial-icon">🧩</div>
+                <div class="tutorial-text">
+                    <strong>Что такое логика сервера?</strong>
+                    <p>Когда пользователь регистрируется, сервер выполняет действия <em>по порядку</em>: сначала проверяет данные, потом шифрует пароль, и т.д.</p>
+                    <p><strong>Твоя задача:</strong> Перетащи блоки в слоты в правильном порядке. Подсказка: подумай, что нужно сделать ДО сохранения в базу?</p>
+                </div>
+            </div>
             <div class="logic-workspace">
                 <div class="task-description">
-                    <strong>Задание:</strong> Настрой регистрацию пользователя.
-                    <br>Собери цепочку действий в правильном порядке: от получения данных до ответа.
+                    <span class="task-icon">📝</span>
+                    <span><strong>Сценарий:</strong> Пользователь нажал "Зарегистрироваться". Что сервер делает?</span>
                 </div>
                 
                 <div class="chain-container" id="chainDropZone">
-                    <div class="chain-slot" data-index="0">1. Проверка</div>
+                    <div class="chain-slot" data-index="0">
+                        <span class="slot-number">1</span>
+                        <span class="slot-hint">Сначала проверяем...</span>
+                    </div>
                     <div class="chain-arrow">→</div>
-                    <div class="chain-slot" data-index="1">2. Защита</div>
+                    <div class="chain-slot" data-index="1">
+                        <span class="slot-number">2</span>
+                        <span class="slot-hint">Потом защищаем...</span>
+                    </div>
                     <div class="chain-arrow">→</div>
-                    <div class="chain-slot" data-index="2">3. Сохранение</div>
+                    <div class="chain-slot" data-index="2">
+                        <span class="slot-number">3</span>
+                        <span class="slot-hint">Затем сохраняем...</span>
+                    </div>
                     <div class="chain-arrow">→</div>
-                    <div class="chain-slot" data-index="3">4. Ответ</div>
+                    <div class="chain-slot" data-index="3">
+                        <span class="slot-number">4</span>
+                        <span class="slot-hint">В конце отвечаем!</span>
+                    </div>
                 </div>
 
-                <div class="logic-blocks-pool" id="blockPool">
-                    <!-- Blocks go here -->
+                <div class="blocks-section">
+                    <div class="blocks-title">Доступные действия (перетащи в слоты):</div>
+                    <div class="logic-blocks-pool" id="blockPool"></div>
                 </div>
             </div>
         `;
@@ -273,8 +325,7 @@ class BackendGame {
 
         if (isMatch) {
             setTimeout(() => {
-                alert('Логика верна! Регистрация работает безопасно.');
-                this.startLevel(3);
+                this.showLevelComplete('Логика выстроена!', 'Теперь регистрация работает безопасно и правильно.', 3);
             }, 200);
         }
     }
@@ -282,100 +333,173 @@ class BackendGame {
     // ================= LEVEL 3: SERVER TUNING (ADVANCED) =================
     renderLevel3(content) {
         content.innerHTML = `
-            <div class="tuning-workspace">
-                <div class="server-monitor">
-                    <div class="monitor-header">
-                        <div class="monitor-title">PROD-SERVER-01</div>
-                        <div class="monitor-timer" id="survivalTimer">60s</div>
+            <div class="level3-layout">
+                <!-- Left: Resource Cards -->
+                <div class="resources-panel">
+                    <div class="panel-header">
+                        <span>⚙️ Ресурсы сервера</span>
+                        <span class="attempts-badge">Попыток: ${this.level3Attempts}</span>
                     </div>
                     
-                    <div class="monitor-screen" id="logScreen">
-                        <div class="log-line success">[SYSTEM] Питание в норме...</div>
-                        <div class="log-line">[HINT] Балансируй энергию! Не превышай 100%!</div>
-                    </div>
-                    
-                    <!-- Energy Bar -->
-                    <div class="energy-container">
-                        <div class="energy-label">
-                            <span>⚡ Энергопотребление</span>
-                            <span id="energyValue">0%</span>
+                    <!-- CPU Card -->
+                    <div class="resource-card" id="cardCpu">
+                        <div class="resource-header">
+                            <span class="resource-icon">🔥</span>
+                            <span class="resource-name">Процессор (CPU)</span>
                         </div>
-                        <div class="energy-bar-bg">
-                            <div class="energy-bar-fill" id="energyBar"></div>
+                        <div class="resource-meters">
+                            <div class="meter-row">
+                                <span class="meter-label">Нагрузка:</span>
+                                <div class="meter-bar-bg">
+                                    <div class="meter-bar-fill" id="meterCpuLoad"></div>
+                                </div>
+                                <span class="meter-value" id="valCpuLoad">0%</span>
+                            </div>
+                            <div class="meter-row">
+                                <span class="meter-label">Мощность:</span>
+                                <input type="range" min="0" max="150" value="50" class="resource-slider" id="sliderCpu">
+                                <span class="meter-value power" id="valCpu">50%</span>
+                            </div>
                         </div>
+                        <div class="resource-status" id="statusCpu">✓ Норма</div>
                     </div>
 
-                    <div class="server-stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Нагрузка</div>
-                            <div class="stat-value" id="statRps">0%</div>
+                    <!-- DB Card -->
+                    <div class="resource-card" id="cardPool">
+                        <div class="resource-header">
+                            <span class="resource-icon">🗄️</span>
+                            <span class="resource-name">База данных</span>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Ошибки</div>
-                            <div class="stat-value" id="statErrors">0%</div>
+                        <div class="resource-meters">
+                            <div class="meter-row">
+                                <span class="meter-label">Нагрузка:</span>
+                                <div class="meter-bar-bg">
+                                    <div class="meter-bar-fill" id="meterPoolLoad"></div>
+                                </div>
+                                <span class="meter-value" id="valPoolLoad">0%</span>
+                            </div>
+                            <div class="meter-row">
+                                <span class="meter-label">Мощность:</span>
+                                <input type="range" min="0" max="150" value="50" class="resource-slider" id="sliderPool">
+                                <span class="meter-value power" id="valPool">50%</span>
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Потери</div>
-                            <div class="stat-value money" id="statMoney">$0</div>
-                        </div>
+                        <div class="resource-status" id="statusPool">✓ Норма</div>
                     </div>
-                    
-                    <div class="alert-box hidden" id="alertBox"></div>
+
+                    <!-- Cache Card -->
+                    <div class="resource-card" id="cardCache">
+                        <div class="resource-header">
+                            <span class="resource-icon">💾</span>
+                            <span class="resource-name">Кэш (снижает нагрузку на БД)</span>
+                        </div>
+                        <div class="resource-meters">
+                            <div class="meter-row">
+                                <span class="meter-label">Размер:</span>
+                                <input type="range" min="0" max="150" value="50" class="resource-slider" id="sliderCache">
+                                <span class="meter-value power" id="valCache">50%</span>
+                            </div>
+                        </div>
+                        <div class="resource-hint">↑ Больше кэш = меньше нагрузки на БД</div>
+                    </div>
                 </div>
 
-                <div class="tuning-controls">
-                    <div class="control-group">
-                        <div class="control-title">Ресурсы (До 150% = Разгон)</div>
-                        
-                        <!-- DB Control -->
-                        <div class="knob-control">
-                            <div class="knob-header">
-                                <span>БД (Соединения)</span>
-                                <span class="usage-indicator" id="usagePool">Нагрузка: 0%</span>
-                            </div>
-                            <input type="range" min="0" max="150" value="50" class="backend-slider" id="sliderPool">
-                            <div class="knob-value-display">Мощность: <span id="valPool">50%</span></div>
+                <!-- Center: Monitor -->
+                <div class="server-monitor-center">
+                    <div class="monitor-top">
+                        <div class="timer-display">
+                            <span class="timer-label">Осталось:</span>
+                            <span class="timer-value" id="survivalTimer">60</span>
+                            <span class="timer-unit">сек</span>
                         </div>
-
-                        <!-- Cache Control -->
-                        <div class="knob-control">
-                            <div class="knob-header">
-                                <span>Кэш (Память)</span>
-                                <span class="usage-indicator" style="color: #888;">Снижает нагрузку на БД</span>
+                        <div class="energy-display">
+                            <span class="energy-icon">⚡</span>
+                            <span class="energy-label">Энергия:</span>
+                            <div class="energy-bar-bg">
+                                <div class="energy-bar-fill" id="energyBar"></div>
                             </div>
-                            <input type="range" min="0" max="150" value="50" class="backend-slider" id="sliderCache">
-                            <div class="knob-value-display">Мощность: <span id="valCache">50%</span></div>
-                        </div>
-                        
-                        <!-- CPU Control -->
-                        <div class="knob-control">
-                            <div class="knob-header">
-                                <span>CPU (Ядра)</span>
-                                <span class="usage-indicator" id="usageCpu">Нагрузка: 0%</span>
-                            </div>
-                            <input type="range" min="0" max="150" value="50" class="backend-slider" id="sliderCpu">
-                            <div class="knob-value-display">Мощность: <span id="valCpu">50%</span></div>
+                            <span class="energy-value" id="energyValue">0%</span>
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <div class="control-title">Модули (Потребляют энергию)</div>
-                        <div class="toggles-row">
-                            <label class="toggle-switch">
+                    <div class="alert-box hidden" id="alertBox"></div>
+
+                    <div class="console-window" id="logScreen">
+                        <div class="console-header">📟 Консоль сервера</div>
+                        <div class="console-content">
+                            <div class="log-line success">[OK] Сервер запущен</div>
+                            <div class="log-line hint">[?] Если нагрузка > мощности — ошибки!</div>
+                            <div class="log-line hint">[?] Следи за событиями в оповещениях</div>
+                        </div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-info">
+                                <div class="stat-label">Трафик</div>
+                                <div class="stat-value" id="statRps">20%</div>
+                            </div>
+                        </div>
+                        <div class="stat-box bad-indicator">
+                            <div class="stat-icon">❌</div>
+                            <div class="stat-info">
+                                <div class="stat-label">Ошибки</div>
+                                <div class="stat-value" id="statErrors">0%</div>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">💸</div>
+                            <div class="stat-info">
+                                <div class="stat-label">Потери</div>
+                                <div class="stat-value money" id="statMoney">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Modules -->
+                <div class="modules-panel">
+                    <div class="panel-header">🔌 Модули</div>
+                    
+                    <div class="module-card" id="moduleFirewall">
+                        <div class="module-header">
+                            <span class="module-icon">🛡️</span>
+                            <span class="module-name">Firewall</span>
+                            <label class="module-toggle">
                                 <input type="checkbox" id="toggleFirewall">
-                                <span class="slider-round"></span>
-                                <span class="toggle-label">Firewall</span>
-                            </label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="toggleCompress">
-                                <span class="slider-round"></span>
-                                <span class="toggle-label">Сжатие</span>
+                                <span class="toggle-slider"></span>
                             </label>
                         </div>
+                        <div class="module-desc">Защита от хакерских атак</div>
+                        <div class="module-cost">+10% энергии</div>
                     </div>
 
-                    <div class="control-group">
-                        <button class="action-btn warning" id="btnGc">🧹 Очистить память (GC)</button>
+                    <div class="module-card" id="moduleCompress">
+                        <div class="module-header">
+                            <span class="module-icon">📦</span>
+                            <span class="module-name">Сжатие</span>
+                            <label class="module-toggle">
+                                <input type="checkbox" id="toggleCompress">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="module-desc">Экономит трафик</div>
+                        <div class="module-cost">+5% энергии</div>
+                    </div>
+
+                    <button class="gc-button" id="btnGc">
+                        <span class="gc-icon">🧹</span>
+                        <span class="gc-text">Очистить память</span>
+                    </button>
+
+                    <div class="rules-box">
+                        <div class="rules-title">📋 Правила:</div>
+                        <ul>
+                            <li>Мощность ≥ Нагрузка = ✓</li>
+                            <li>Энергия > 100% = ошибки!</li>
+                            <li>Потери > $15000 = проигрыш</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -397,11 +521,18 @@ class BackendGame {
         const elErrors = document.getElementById('statErrors');
         const elMoney = document.getElementById('statMoney');
         const elTimer = document.getElementById('survivalTimer');
-        const elLog = document.getElementById('logScreen');
+        const elLog = document.querySelector('.console-content');
         const elAlert = document.getElementById('alertBox');
         
-        const elUsageCpu = document.getElementById('usageCpu');
-        const elUsagePool = document.getElementById('usagePool');
+        // New meter elements
+        const meterCpuLoad = document.getElementById('meterCpuLoad');
+        const meterPoolLoad = document.getElementById('meterPoolLoad');
+        const valCpuLoad = document.getElementById('valCpuLoad');
+        const valPoolLoad = document.getElementById('valPoolLoad');
+        const statusCpu = document.getElementById('statusCpu');
+        const statusPool = document.getElementById('statusPool');
+        const cardCpu = document.getElementById('cardCpu');
+        const cardPool = document.getElementById('cardPool');
         
         const elEnergyBar = document.getElementById('energyBar');
         const elEnergyVal = document.getElementById('energyValue');
@@ -425,23 +556,28 @@ class BackendGame {
                 const val = parseInt(el.value);
                 const display = document.getElementById(el.id.replace('slider', 'val'));
                 if (val > 100) display.style.color = '#ffbd2e'; // Warning color
-                else display.style.color = '#fff';
+                else display.style.color = '#4caf50';
             });
         };
         [sPool, sCache, sCpu].forEach(el => el.addEventListener('input', updateLabels));
+        updateLabels(); // Initial update
 
         // GC Button
         btnGc.addEventListener('click', () => {
             memoryLeak = 0;
-            this.log(elLog, '[SYS] Память очищена', 'success');
+            this.log(elLog, '[OK] Память очищена!', 'success');
             btnGc.disabled = true;
-            setTimeout(() => btnGc.disabled = false, 3000); // Cooldown
+            btnGc.classList.add('cooldown');
+            setTimeout(() => {
+                btnGc.disabled = false;
+                btnGc.classList.remove('cooldown');
+            }, 3000);
         });
 
         // Game Loop
         this.simulationInterval = setInterval(() => {
             timeLeft -= 0.5;
-            elTimer.textContent = Math.ceil(timeLeft) + 's';
+            elTimer.textContent = Math.ceil(timeLeft);
 
             if (timeLeft <= 0) {
                 this.winGame();
@@ -452,21 +588,21 @@ class BackendGame {
             // 45s: Traffic Spike (Requires > 100% CPU)
             if (timeLeft === 45) {
                 isTrafficSpike = true;
-                this.showAlert(elAlert, '⚠️ ПИКОВАЯ НАГРУЗКА!<br><span style="font-size:12px; color:#fff;">Разгоняй CPU выше 100%! Следи за энергией!</span>');
-                this.log(elLog, '[WARN] Трафик превышает норму!', 'warn');
+                this.showAlert(elAlert, '⚠️ ПИКОВАЯ НАГРУЗКА!<br><span style="font-size:12px; color:#fff;">Много пользователей! Увеличь CPU и БД!</span><br><span style="font-size:11px; color:#aaa;">Подвинь ползунки вправо, пока "Нагрузка" не станет зелёной</span>');
+                this.log(elLog, '[WARN] Много посетителей на сайте!', 'warn');
             }
             // 30s: Hacker Attack
             if (timeLeft === 30) {
                 isHackerAttack = true;
                 isTrafficSpike = false; 
-                this.showAlert(elAlert, '☠️ DDoS АТАКА!<br><span style="font-size:12px; color:#fff;">Включи FIREWALL! Отключи лишнее для экономии энергии!</span>');
-                this.log(elLog, '[CRITICAL] Атака на сервер!', 'error');
+                this.showAlert(elAlert, '☠️ ХАКЕРСКАЯ АТАКА!<br><span style="font-size:12px; color:#fff;">Включи переключатель "Firewall" справа!</span><br><span style="font-size:11px; color:#aaa;">Это защитит сервер от взлома</span>');
+                this.log(elLog, '[CRITICAL] Хакеры атакуют сервер!', 'error');
             }
             // 15s: Memory Leak
             if (timeLeft === 15) {
                 isHackerAttack = false;
-                this.showAlert(elAlert, '💾 УТЕЧКА ПАМЯТИ!<br><span style="font-size:12px; color:#fff;">Очисти память!</span>');
-                this.log(elLog, '[WARN] RAM переполнена', 'warn');
+                this.showAlert(elAlert, '💾 ПАМЯТЬ ЗАПОЛНЕНА!<br><span style="font-size:12px; color:#fff;">Нажми кнопку "Очистить память"!</span><br><span style="font-size:11px; color:#aaa;">Жёлтая кнопка внизу справа</span>');
+                this.log(elLog, '[WARN] Память сервера заполнена!', 'warn');
             }
             
             if (timeLeft === 40 || timeLeft === 25 || timeLeft === 10) {
@@ -542,13 +678,25 @@ class BackendGame {
             if (firewall) requiredCpu += 20;
             if (compress) requiredCpu += 10;
 
-            elUsageCpu.textContent = `Нагрузка: ${Math.floor(requiredCpu)}%`;
+            // Update CPU meter
+            const cpuLoadPercent = Math.min((requiredCpu / 150) * 100, 100);
+            meterCpuLoad.style.width = cpuLoadPercent + '%';
+            valCpuLoad.textContent = Math.floor(requiredCpu) + '%';
+            
             if (requiredCpu > cpu) {
-                elUsageCpu.style.color = '#f44336';
+                meterCpuLoad.style.backgroundColor = '#f44336';
+                valCpuLoad.style.color = '#f44336';
+                statusCpu.textContent = '✗ Перегрузка!';
+                statusCpu.className = 'resource-status bad';
+                cardCpu.classList.add('warning');
                 errors += (requiredCpu - cpu) / 2;
                 if (Math.random() > 0.8) this.log(elLog, '[CPU] Не хватает мощности!', 'error');
             } else {
-                elUsageCpu.style.color = '#4caf50';
+                meterCpuLoad.style.backgroundColor = '#4caf50';
+                valCpuLoad.style.color = '#4caf50';
+                statusCpu.textContent = '✓ Норма';
+                statusCpu.className = 'resource-status good';
+                cardCpu.classList.remove('warning');
             }
 
             // 3. DB Load
@@ -557,13 +705,25 @@ class BackendGame {
             let cacheFactor = 1 - (cache / 200); 
             let requiredPool = currentLoad * cacheFactor;
             
-            elUsagePool.textContent = `Нагрузка: ${Math.floor(requiredPool)}%`;
+            // Update DB meter
+            const poolLoadPercent = Math.min((requiredPool / 150) * 100, 100);
+            meterPoolLoad.style.width = poolLoadPercent + '%';
+            valPoolLoad.textContent = Math.floor(requiredPool) + '%';
+            
             if (requiredPool > pool) {
-                elUsagePool.style.color = '#f44336';
+                meterPoolLoad.style.backgroundColor = '#f44336';
+                valPoolLoad.style.color = '#f44336';
+                statusPool.textContent = '✗ Перегрузка!';
+                statusPool.className = 'resource-status bad';
+                cardPool.classList.add('warning');
                 errors += (requiredPool - pool);
-                if (Math.random() > 0.8) this.log(elLog, '[DB] Очередь переполнена!', 'error');
+                if (Math.random() > 0.8) this.log(elLog, '[БД] Очередь переполнена!', 'error');
             } else {
-                elUsagePool.style.color = '#4caf50';
+                meterPoolLoad.style.backgroundColor = '#4caf50';
+                valPoolLoad.style.color = '#4caf50';
+                statusPool.textContent = '✓ Норма';
+                statusPool.className = 'resource-status good';
+                cardPool.classList.remove('warning');
             }
 
             // 4. Hacker Attack
