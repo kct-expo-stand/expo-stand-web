@@ -58,12 +58,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctx = canvas.getContext('2d');
 
     const gamesData = {
-        frontend: { title: 'FrontEnd', desc: 'Создание интерфейсов', icon: '<i class="fa-brands fa-react"></i>' },
-        backend: { title: 'BackEnd', desc: 'Серверная логика', icon: '<i class="fa-brands fa-node-js"></i>' },
-        gamedev: { title: 'GameDev', desc: 'Разработка игр', icon: '<i class="fa-brands fa-unity"></i>' },
-        uxui: { title: 'UX/UI', desc: 'Дизайн интерфейсов', icon: '<i class="fa-solid fa-pen-nib"></i>' },
-        pm: { title: 'Project Manager', desc: 'Управление проектами', icon: '<i class="fa-solid fa-list-check"></i>' },
-        sysadmin: { title: 'SysAdmin', desc: 'Администрирование', icon: '<i class="fa-solid fa-server"></i>' }
+        frontend: { title: 'FrontEnd', desc: 'РЎРѕР·РґР°РЅРёРµ РёРЅС‚РµСЂС„РµР№СЃРѕРІ', icon: '<i class="fa-brands fa-react"></i>' },
+        backend: { title: 'BackEnd', desc: 'РЎРµСЂРІРµСЂРЅР°СЏ Р»РѕРіРёРєР°', icon: '<i class="fa-brands fa-node-js"></i>' },
+        gamedev: { title: 'GameDev', desc: 'Р Р°Р·СЂР°Р±РѕС‚РєР° РёРіСЂ', icon: '<i class="fa-brands fa-unity"></i>' },
+        uxui: { title: 'UX/UI', desc: 'Р”РёР·Р°Р№РЅ РёРЅС‚РµСЂС„РµР№СЃРѕРІ', icon: '<i class="fa-solid fa-pen-nib"></i>' },
+        pm: { title: 'Project Manager', desc: 'РЈРїСЂР°РІР»РµРЅРёРµ РїСЂРѕРµРєС‚Р°РјРё', icon: '<i class="fa-solid fa-list-check"></i>' },
+        sysadmin: { title: 'SysAdmin', desc: 'РђРґРјРёРЅРёСЃС‚СЂРёСЂРѕРІР°РЅРёРµ', icon: '<i class="fa-solid fa-server"></i>' }
     };
 
     function resizeCanvas() {
@@ -135,11 +135,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     gameContainer.className = 'game-container-full';
                     const game = new BackendGame();
                     game.start(gameContainer);
+                } else if (gameKey === 'gamedev') {
+                    gameContainer.className = 'game-container-full';
+                    const game = new GameDevGame();
+                    game.start(gameContainer);
+                } else if (gameKey === 'uxui') {
+                    gameContainer.className = 'game-container-full';
+                    const game = new UxuiGame();
+                    game.start(gameContainer);
+                } else if (gameKey === 'pm') {
+                    gameContainer.className = 'game-container-full';
+                    const game = new PmGame();
+                    game.start(gameContainer);
+                } else if (gameKey === 'sysadmin') {
+                    gameContainer.className = 'game-container-full';
+                    const game = new SysAdminGame();
+                    game.start(gameContainer);
                 } else {
                     // Default placeholder for other games
                     gameContainer.innerHTML = `
                         <div class="loader"></div>
-                        <span>Модуль ${data.title} в разработке...</span>
+                        <span>РњРѕРґСѓР»СЊ ${data.title} РІ СЂР°Р·СЂР°Р±РѕС‚РєРµ...</span>
                     `;
                 }
 
@@ -170,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
         frame.innerHTML = `
             <div class="game-placeholder-screen">
                 <div class="loader"></div>
-                <span>Загрузка модуля...</span>
+                <span>Р—Р°РіСЂСѓР·РєР° РјРѕРґСѓР»СЏ...</span>
             </div>
         `;
         
